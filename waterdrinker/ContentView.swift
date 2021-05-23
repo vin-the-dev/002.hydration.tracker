@@ -16,10 +16,9 @@ struct ContentView: View {
     
     @State private var percent = 0.0
     @State private var isOpen = false
-    
-    private let totalml:CGFloat = 3700
     @State private var waterml:CGFloat = 0
     
+    private let totalml:CGFloat = 3700
     private let animationDuration = 0.15
     
     func updatePercentage(ml: CGFloat) {
