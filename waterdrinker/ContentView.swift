@@ -9,18 +9,22 @@ import SwiftUI
 
 let bottleColor = Color(red: 0, green: 0.5, blue: 0.75, opacity: 0.5)
 let buttonColor = Color(red: 0, green: 0.5, blue: 0.75, opacity: 0.5)
-let gradientStart = Color(UIColor(hex: "#59BAFDEE")!)
-let gradientEnd = Color(UIColor(hex: "#8ED0FDEE")!)
-
-
+let gradientStart = Color(UIColor(hex: "#59BAFDEF")!)
+let gradientEnd = Color(UIColor(hex: "#8ED0FDEF")!)
 
 struct ContentView: View {
     
     @State private var percent = 0.0
-    @State private var isOpen = true
+    @State private var isOpen = false
     
     private var totalml:CGFloat = 3700
     @State private var waterml:CGFloat = 0
+    
+    func updatePercentage(ml: CGFloat) {
+        waterml = waterml + ml
+        percent = Double(min(Int(self.waterml / self.totalml * 100), 100))
+        isOpen = !isOpen
+    }
     
     
     var body: some View {
@@ -60,9 +64,7 @@ struct ContentView: View {
                     Spacer()
                     VStack(alignment: .center, spacing: 5) {
                         Button(action: {
-                            waterml = waterml + 500
-                            percent = Double(min(Int(self.waterml / self.totalml * 100), 100))
-                            isOpen = !isOpen
+                            updatePercentage(ml: 500.00)
                         }, label: {
                             HStack {
                                 Image("water-bottle")
@@ -75,20 +77,12 @@ struct ContentView: View {
                             }
                         })
                     }
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 100, alignment: .center)
-                    .background(LinearGradient(
-                                    gradient: Gradient(colors: [gradientStart, gradientEnd]),
-                                    startPoint: .leading,
-                                    endPoint: .trailing))
-                    .cornerRadius(20)
-                    .padding(.horizontal, 50)
+                    .buttonStyle(CustomButtonStyle())
                     .opacity(isOpen ? 1 : 0)
                     .animation(Animation.easeIn(duration: 0.25).delay(0.5))
                     VStack(alignment: .center, spacing: 5) {
                         Button(action: {
-                            waterml = waterml + 250
-                            percent = Double(min(Int(self.waterml / self.totalml * 100), 100))
-                            isOpen = !isOpen
+                            updatePercentage(ml: 250.00)
                         }, label: {
                             HStack {
                                 Image("water-glass")
@@ -101,20 +95,12 @@ struct ContentView: View {
                             }
                         })
                     }
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 100, alignment: .center)
-                    .background(LinearGradient(
-                                    gradient: Gradient(colors: [gradientStart, gradientEnd]),
-                                    startPoint: .leading,
-                                    endPoint: .trailing))
-                    .cornerRadius(20)
-                    .padding(.horizontal, 50)
+                    .buttonStyle(CustomButtonStyle())
                     .opacity(isOpen ? 1 : 0)
                     .animation(Animation.easeIn(duration: 0.25).delay(0.25))
                     VStack(alignment: .center, spacing: 5) {
                         Button(action: {
-                            waterml = waterml + 100
-                            percent = Double(min(Int(self.waterml / self.totalml * 100), 100))
-                            isOpen = !isOpen
+                            updatePercentage(ml: 100.00)
                         }, label: {
                             HStack {
                                 Image("water-drop")
@@ -128,13 +114,7 @@ struct ContentView: View {
                         })
                         
                     }
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 100, alignment: .center)
-                    .background(LinearGradient(
-                                    gradient: Gradient(colors: [gradientStart, gradientEnd]),
-                                    startPoint: .leading,
-                                    endPoint: .trailing))
-                    .cornerRadius(20)
-                    .padding(.horizontal, 50)
+                    .buttonStyle(CustomButtonStyle())
                     .opacity(isOpen ? 1 : 0)
                     .animation(Animation.easeIn(duration: 0.25))
                     Spacer()
@@ -149,6 +129,7 @@ struct ContentView: View {
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
@@ -189,6 +170,24 @@ struct CustomShape: Shape {
             
         }
     }
+}
+
+
+
+
+
+
+struct CustomButtonStyle: ButtonStyle {
+    func makeBody(configuration: Self.Configuration) -> some View {
+            return configuration.label
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 100, alignment: .center)
+                .background(LinearGradient(
+                                gradient: Gradient(colors: [gradientStart, gradientEnd]),
+                                startPoint: .leading,
+                                endPoint: .trailing))
+                .cornerRadius(20)
+                .padding(.horizontal, 50)
+        }
 }
 
 // https://stackoverflow.com/questions/63397067/fill-circle-with-wave-animation-in-swiftui
