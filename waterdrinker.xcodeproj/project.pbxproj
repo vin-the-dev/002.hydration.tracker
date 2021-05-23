@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8563E0E3265A9F8F002E35CA /* ColorHex_Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8563E0E2265A9F8F002E35CA /* ColorHex_Extenstion.swift */; };
 		856CED80265A41970016CBF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856CED7F265A41970016CBF4 /* AppDelegate.swift */; };
 		856CED82265A41970016CBF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856CED81265A41970016CBF4 /* SceneDelegate.swift */; };
 		856CED84265A41970016CBF4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856CED83265A41970016CBF4 /* ContentView.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8563E0E2265A9F8F002E35CA /* ColorHex_Extenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHex_Extenstion.swift; sourceTree = "<group>"; };
 		856CED7C265A41970016CBF4 /* waterdrinker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = waterdrinker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		856CED7F265A41970016CBF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		856CED81265A41970016CBF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				856CED8A265A41980016CBF4 /* LaunchScreen.storyboard */,
 				856CED8D265A41980016CBF4 /* Info.plist */,
 				856CED87265A41980016CBF4 /* Preview Content */,
+				8563E0E2265A9F8F002E35CA /* ColorHex_Extenstion.swift */,
 			);
 			path = waterdrinker;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8563E0E3265A9F8F002E35CA /* ColorHex_Extenstion.swift in Sources */,
 				856CED80265A41970016CBF4 /* AppDelegate.swift in Sources */,
 				856CED82265A41970016CBF4 /* SceneDelegate.swift in Sources */,
 				856CED84265A41970016CBF4 /* ContentView.swift in Sources */,

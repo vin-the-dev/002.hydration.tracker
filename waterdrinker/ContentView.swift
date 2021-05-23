@@ -9,12 +9,18 @@ import SwiftUI
 
 let bottleColor = Color(red: 0, green: 0.5, blue: 0.75, opacity: 0.5)
 let buttonColor = Color(red: 0, green: 0.5, blue: 0.75, opacity: 0.5)
+let gradientStart = Color(UIColor(hex: "#59BAFDEE")!)
+let gradientEnd = Color(UIColor(hex: "#8ED0FDEE")!)
+
 
 
 struct ContentView: View {
     
-    @State private var percent = 50.0
-    @State private var isOpen = false
+    @State private var percent = 0.0
+    @State private var isOpen = true
+    
+    private var totalml:CGFloat = 3700
+    @State private var waterml:CGFloat = 0
     
     
     var body: some View {
@@ -22,7 +28,7 @@ struct ContentView: View {
             
             ZStack {
                 VStack {
-                    CircleWaveView(percent: Int(self.percent))
+                    CircleWaveView(percent: Int(percent))
                         .frame(width: .infinity, height: .infinity, alignment: .center)
                         .ignoresSafeArea()
                 }
@@ -51,19 +57,95 @@ struct ContentView: View {
                     .animation(.easeInOut(duration: 0.25))
                 }
                 VStack{
-//                    blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
                     Spacer()
-                        .frame(width: .infinity, height: .infinity, alignment: .center)
-//                    Text("ABC")
+                    VStack(alignment: .center, spacing: 5) {
+                        Button(action: {
+                            waterml = waterml + 500
+                            percent = Double(min(Int(self.waterml / self.totalml * 100), 100))
+                            isOpen = !isOpen
+                        }, label: {
+                            HStack {
+                                Image("water-bottle")
+                                    .resizable()
+                                    .frame(width: 40, height: 40, alignment: .center)
+                                    .foregroundColor(.white)
+                                Text("500 ml")
+                                    .font(Font.system(size: 35))
+                                    .foregroundColor(.white)
+                            }
+                        })
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 100, alignment: .center)
+                    .background(LinearGradient(
+                                    gradient: Gradient(colors: [gradientStart, gradientEnd]),
+                                    startPoint: .leading,
+                                    endPoint: .trailing))
+                    .cornerRadius(20)
+                    .padding(.horizontal, 50)
+                    .opacity(isOpen ? 1 : 0)
+                    .animation(Animation.easeIn(duration: 0.25).delay(0.5))
+                    VStack(alignment: .center, spacing: 5) {
+                        Button(action: {
+                            waterml = waterml + 250
+                            percent = Double(min(Int(self.waterml / self.totalml * 100), 100))
+                            isOpen = !isOpen
+                        }, label: {
+                            HStack {
+                                Image("water-glass")
+                                    .resizable()
+                                    .frame(width: 40, height: 40, alignment: .center)
+                                    .foregroundColor(.white)
+                                Text("250 ml")
+                                    .font(Font.system(size: 35))
+                                    .foregroundColor(.white)
+                            }
+                        })
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 100, alignment: .center)
+                    .background(LinearGradient(
+                                    gradient: Gradient(colors: [gradientStart, gradientEnd]),
+                                    startPoint: .leading,
+                                    endPoint: .trailing))
+                    .cornerRadius(20)
+                    .padding(.horizontal, 50)
+                    .opacity(isOpen ? 1 : 0)
+                    .animation(Animation.easeIn(duration: 0.25).delay(0.25))
+                    VStack(alignment: .center, spacing: 5) {
+                        Button(action: {
+                            waterml = waterml + 100
+                            percent = Double(min(Int(self.waterml / self.totalml * 100), 100))
+                            isOpen = !isOpen
+                        }, label: {
+                            HStack {
+                                Image("water-drop")
+                                    .resizable()
+                                    .frame(width: 40, height: 40, alignment: .center)
+                                    .foregroundColor(.white)
+                                Text("100 ml")
+                                    .font(Font.system(size: 35))
+                                    .foregroundColor(.white)
+                            }
+                        })
+                        
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 100, alignment: .center)
+                    .background(LinearGradient(
+                                    gradient: Gradient(colors: [gradientStart, gradientEnd]),
+                                    startPoint: .leading,
+                                    endPoint: .trailing))
+                    .cornerRadius(20)
+                    .padding(.horizontal, 50)
+                    .opacity(isOpen ? 1 : 0)
+                    .animation(Animation.easeIn(duration: 0.25))
+                    Spacer()
                 }
                 .frame(width: .infinity, height: .infinity, alignment: .center)
-                .background(Color.red)
                 .opacity(isOpen ? 1 : 0)
                 .animation(.easeInOut)
                 //                .background(Color.red)
-//                Slider(value: self.$percent, in: 0...100)
+                //                Slider(value: self.$percent, in: 0...100)
             }
-//            .padding(.all)
+            //            .padding(.all)
         }
     }
 }
@@ -111,7 +193,7 @@ struct CustomShape: Shape {
 
 // https://stackoverflow.com/questions/63397067/fill-circle-with-wave-animation-in-swiftui
 struct Wave: Shape {
-
+    
     var offset: Angle
     var percent: Double
     
@@ -122,7 +204,7 @@ struct Wave: Shape {
     
     func path(in rect: CGRect) -> Path {
         var p = Path()
-
+        
         // empirically determined values for wave to be seen
         // at 0 and 100 percent
         let lowfudge = 0.02
@@ -156,7 +238,7 @@ struct CircleWaveView: View {
     
     
     var body: some View {
-
+        
         GeometryReader { geo in
             ZStack {
                 Text("\(self.percent)%")
@@ -171,10 +253,10 @@ struct CircleWaveView: View {
                     )
             }
         }
-//        .aspectRatio(1, contentMode: .fit)
+        //        .aspectRatio(1, contentMode: .fit)
         .onAppear {
             withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: false)) {
-            self.waveOffset = Angle(degrees: 360)
+                self.waveOffset = Angle(degrees: 360)
             }
         }
     }
