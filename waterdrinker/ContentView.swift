@@ -17,8 +17,10 @@ struct ContentView: View {
     @State private var percent = 0.0
     @State private var isOpen = false
     
-    private var totalml:CGFloat = 3700
+    private let totalml:CGFloat = 3700
     @State private var waterml:CGFloat = 0
+    
+    private let animationDuration = 0.15
     
     func updatePercentage(ml: CGFloat) {
         waterml = waterml + ml
@@ -79,7 +81,7 @@ struct ContentView: View {
                     }
                     .buttonStyle(CustomButtonStyle())
                     .opacity(isOpen ? 1 : 0)
-                    .animation(Animation.easeIn(duration: 0.25).delay(0.5))
+                    .animation(Animation.easeInOut(duration: animationDuration).delay(animationDuration * 2))
                     VStack(alignment: .center, spacing: 5) {
                         Button(action: {
                             updatePercentage(ml: 250.00)
@@ -97,7 +99,7 @@ struct ContentView: View {
                     }
                     .buttonStyle(CustomButtonStyle())
                     .opacity(isOpen ? 1 : 0)
-                    .animation(Animation.easeIn(duration: 0.25).delay(0.25))
+                    .animation(Animation.easeInOut(duration: animationDuration).delay(animationDuration))
                     VStack(alignment: .center, spacing: 5) {
                         Button(action: {
                             updatePercentage(ml: 100.00)
@@ -116,7 +118,7 @@ struct ContentView: View {
                     }
                     .buttonStyle(CustomButtonStyle())
                     .opacity(isOpen ? 1 : 0)
-                    .animation(Animation.easeIn(duration: 0.25))
+                    .animation(Animation.easeInOut(duration: animationDuration))
                     Spacer()
                 }
                 .frame(width: .infinity, height: .infinity, alignment: .center)
